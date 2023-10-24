@@ -1,58 +1,54 @@
 #include <locale.h>
-#include <stdio.h>
+#include <stdlib.h>
+#include "functions.h"
 
 int menu() {
-	int response = 0;
+	int option = 0;
 
-	printf("========================================\n\n");
-	printf("Menu de interação\n\n");
-	printf("========================================\n\n");
+	printf("----------------------------------------\n\n");
+	printf("MENU DE INTERAÇÃO\n\n");
+	printf("----------------------------------------\n\n");
 	
-	printf("(1) - Produtos\n");
-	printf("(2) - Vendedores\n");
-	printf("(3) - Clients\n");
-	printf("(4) - Sair\n\n");
+	printf("1 - Produtos\n");
+	printf("2 - Vendedores\n");
+	printf("3 - Clients\n");
+	printf("4 - Sair\n\n");
 	
-	scanf("%i", &response);
+	printf("Por favor, digite uma das opções para continuar: ");
+	scanf("%i", &option);
 	
 	getchar();
 	
-	return response;
-}
-
-int seller() {
-	return 1;
-}
-
-int products() {
-	return 2;
-}
-
-int clients() {
-	return 3;
+	return option;
 }
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
-	int response = menu();
+	int option = menu();
 	
-	while(response < 4) {
-		system("cls");		
-		response = menu();
+	while (option != 4) {
+		system("cls");
 		
-		switch(response) {
-			case 1:
-				printf("1");
-				break;
-			case 2:
-				printf("2");
-				break;
-			case 3:
-				printf("3");
-				break;
+		if (option == 1) {
+			products();
+			break;
 		}
 		
+		else if (option == 2) {
+			seller();
+			break;
+		}
+		
+		else if (option == 3) {
+			clients();
+			break;
+		} 
+		
+		else {
+			break;
+		}
 	}
+	
 	
 	
 	return 0;
