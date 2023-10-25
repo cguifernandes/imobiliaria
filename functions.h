@@ -1,8 +1,9 @@
 #ifndef FUNCOES_H
 #define FUNCOES_H
 
-void clients();
-void products();
-void seller();
+void interaction_clients();
+void interaction_products();
+void interaction_seller();
+void interaction_menu();
 
 #endif

@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o clients.o products.o seller.o
-LINKOBJ  = main.o clients.o products.o seller.o
+OBJ      = main.o clients.o products.o seller.o functions.o
+LINKOBJ  = main.o clients.o products.o seller.o functions.o
 LIBS     = -L"E:/App/Dev-Cpp/MinGW64/lib" -L"E:/App/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"E:/App/Dev-Cpp/MinGW64/include" -I"E:/App/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/App/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"E:/App/Dev-Cpp/MinGW64/include" -I"E:/App/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/App/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/App/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -35,3 +35,6 @@ products.o: products.c
 
 seller.o: seller.c
 	$(CPP) -c seller.c -o seller.o $(CXXFLAGS)
+
+functions.o: functions.c
+	$(CPP) -c functions.c -o functions.o $(CXXFLAGS)

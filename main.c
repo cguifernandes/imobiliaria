@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "functions.h"
 
-int menu() {
-	int option = 0;
+void interaction_menu() {
+	int option;
 
 	printf("----------------------------------------\n\n");
 	printf("MENU DE INTERAÇÃO\n\n");
@@ -17,39 +17,35 @@ int menu() {
 	printf("Por favor, digite uma das opções para continuar: ");
 	scanf("%i", &option);
 	
-	getchar();
+	while (option != 4) {
+		system("cls");
+		
+		switch (option) {			
+			case 1: 
+				interaction_products();
+				break;
+			case 2: 
+				interaction_seller();
+				break;
+			case 3: 
+				interaction_clients();
+				break;
+			case 4:
+				break;
+			default:
+				interaction_menu();
+				break;
+		}
+		
+		getchar();
+	}
 	
-	return option;
+	
 }
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
-	int option = menu();
-	
-	while (option != 4) {
-		system("cls");
-		
-		if (option == 1) {
-			products();
-			break;
-		}
-		
-		else if (option == 2) {
-			seller();
-			break;
-		}
-		
-		else if (option == 3) {
-			clients();
-			break;
-		} 
-		
-		else {
-			break;
-		}
-	}
-	
-	
+	interaction_menu();
 	
 	return 0;
 }
