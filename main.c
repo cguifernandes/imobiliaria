@@ -8,7 +8,7 @@ void interaction_menu() {
 	while (option != 4) {
 		system("cls");
 		printf("----------------------------------------\n\n");
-		printf("           MENU DE INTERAÇÃO\n\n");
+		printf("          MENU DE INTERAÇÃO\n\n");
 		printf("----------------------------------------\n\n");
 		
 		printf("1 - Produtos\n");

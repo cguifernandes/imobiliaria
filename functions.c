@@ -12,9 +12,27 @@ int exist_register_products(char *arquivo, int id) {
 			return 1;
 		}
 		else {
-		 return 0;
+			return 0;
 		}
 	}
 	
 	fclose(arq);
+}
+
+products search_products(char *arquivo, int id) {
+    FILE *arq = fopen(arquivo, "r");
+    products tmp;
+    
+   	while (!feof(arq)) {
+    	fscanf(arq, "%i %s %f %i", &tmp.id, tmp.endereco, &tmp.valor, &tmp.status);
+        if (tmp.id == id) {
+            return tmp; 
+        }
+        else {
+        	tmp.id = -1;
+		}
+    }
+
+    fclose(arq);
+    return tmp; 
 }

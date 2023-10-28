@@ -13,6 +13,8 @@ void interaction_products();
 void interaction_seller();
 void interaction_menu();
 void insert_products();
+void list_products();
+products search_products(char *arquivo, int id);
 char insert();
 int exist_register_products(char *arquivo, int id);
 
