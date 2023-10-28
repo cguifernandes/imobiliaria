@@ -3,27 +3,25 @@
 #include "functions.h"
 
 void interaction_products() {
-	int option;
+	int option = 0;
 	
-	printf("----------------------------------------\n\n");
-	printf("PRODUTOS\n\n");
-	printf("----------------------------------------\n\n");
-	
-	printf("1 - Cadastrar um produtos\n");
-	printf("2 - Listar um produtos\n");
-	printf("3 - Excluir um produto\n");
-	printf("4 - Voltar ao menu de interação\n");
-	printf("5 - Sair\n\n");
-	
-	printf("Por favor, digite uma das opções para continuar: ");
-	scanf("%i", &option);
-	
-	while (option != 5) {
+	while (option != 4) {
 		system("cls");
+		printf("----------------------------------------\n\n");
+		printf("                PRODUTOS\n\n");
+		printf("----------------------------------------\n\n");
 		
-		switch (option) {			
+		printf("1 - Cadastrar um produtos\n");
+		printf("2 - Listar um produtos\n");
+		printf("3 - Excluir um produto\n");
+		printf("4 - Voltar ao menu de interação\n\n");
+		
+		printf("Por favor, digite uma das opções para continuar: ");
+		scanf("%i", &option);
+		
+		switch (option) {	
 			case 1: 
-				printf("cadastrar");
+				insert_products();
 				break;
 			case 2: 
 				printf("Listar");
@@ -32,17 +30,43 @@ void interaction_products() {
 				printf("Excluir");
 				break;
 			case 4: 
-				interaction_menu();
-				break;
-			case 5:
-				break;
+				return;
 			default:
-			 	interaction_products();
 				break;
 		}
 		
 		getchar();
 	}
+}
+
+void insert_products (){
+	system("cls");
 	
+	int id, status;
+	float valor;
+	char endereco[101];
+	
+	printf("----------------------------------------\n\n");
+	printf("                PRODUTOS\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o Identificador do Produto: ");
+	scanf("%i", &id);
+	
+	printf("Insira o endereço do imóvel: ");
+	scanf("%s", endereco);
+	
+	printf("Insira o valor do imóvel: ");
+	scanf("%f", &valor);
+	
+	printf("Qual é o status do imóvel? (1 - Vendido, 2 - À venda): ");
+	scanf("%i", &status);
+	
+	printf("%i \n", id);
+	printf("%i \n", status);
+	printf("%f \n", valor);
+	printf("%s \n", endereco);
+
+	scanf("%i", &status);
 	
 }

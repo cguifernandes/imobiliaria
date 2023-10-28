@@ -5,23 +5,22 @@
 void interaction_clients() {
 	int option;
 	
-	printf("----------------------------------------\n\n");
-	printf("CLIENTE\n\n");
-	printf("----------------------------------------\n\n");
-	
-	printf("1 - Cadastrar um cliente\n");
-	printf("2 - Listar um cliente\n");
-	printf("3 - Excluir um cliente\n");
-	printf("4 - Voltar ao menu de interação\n");
-	printf("5 - Sair\n\n");
-	
-	printf("Por favor, digite uma das opções para continuar: ");
-	scanf("%i", &option);
-	
-	while (option != 5) {
+	while (option != 4) {
 		system("cls");
+		printf("----------------------------------------\n\n");
+		printf("                CLIENTE\n\n");
+		printf("----------------------------------------\n\n");
 		
-		switch (option) {			
+		printf("1 - Cadastrar um cliente\n");
+		printf("2 - Listar um cliente\n");
+		printf("3 - Excluir um cliente\n");
+		printf("4 - Voltar ao menu de interação\n\n");
+		
+		printf("Por favor, digite uma das opções para continuar: ");
+		scanf("%i", &option);
+		
+		switch (option) {
+						
 			case 1: 
 				printf("1");
 				break;
@@ -32,12 +31,8 @@ void interaction_clients() {
 				printf("3");
 				break;
 			case 4: 
-				interaction_menu();
-				break;
-			case 5:
-				break;
+				return;
 			default:
-			 	interaction_clients();
 				break;
 		}
 	}

@@ -3,25 +3,25 @@
 #include "functions.h"
 
 void interaction_seller() {
-	int option;
+	int option = 0;
 	
-	printf("----------------------------------------\n\n");
-	printf("VENDEDOR\n\n");
-	printf("----------------------------------------\n\n");
-	
-	printf("1 - Cadastrar um vendedor\n");
-	printf("2 - Listar um vendedor\n");
-	printf("3 - Excluir um vendedor\n");
-	printf("4 - Voltar ao menu de interação\n");
-	printf("5 - Sair\n\n");
-	
-	printf("Por favor, digite uma das opções para continuar: ");
-	scanf("%i", &option);
-	
-	while (option != 5) {
+	while (option != 4) {
 		system("cls");
+		printf("----------------------------------------\n\n");
+		printf("               VENDEDOR\n\n");
+		printf("----------------------------------------\n\n");
 		
-		switch (option) {			
+		printf("1 - Cadastrar um vendedor\n");
+		printf("2 - Listar um vendedor\n");
+		printf("3 - Excluir um vendedor\n");
+		printf("4 - Voltar ao menu de interação\n\n");
+		
+		printf("Por favor, digite uma das opções para continuar: ");
+		scanf("%i", &option);
+	
+	
+		switch (option) {	
+					
 			case 1: 
 				printf("1");
 				break;
@@ -32,12 +32,8 @@ void interaction_seller() {
 				printf("3");
 				break;
 			case 4: 
-				interaction_menu();
-				break;
-			case 5:
-				break;
+				return;
 			default:
-			 	interaction_seller();
 				break;
 		}
 	}
