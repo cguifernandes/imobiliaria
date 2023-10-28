@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
+#define ARQ_PRODUCTS "products.txt"
 
 void interaction_products() {
 	int option = 0;
@@ -22,7 +23,7 @@ void interaction_products() {
 		switch (option) {	
 			case 1: 
 				insert_products();
-				break;
+				return;
 			case 2: 
 				printf("Listar");
 				break;
@@ -41,32 +42,41 @@ void interaction_products() {
 
 void insert_products (){
 	system("cls");
+	products rgs;
+	FILE *arq = fopen(ARQ_PRODUCTS, "a+");
 	
-	int id, status;
-	float valor;
-	char endereco[101];
 	
 	printf("----------------------------------------\n\n");
 	printf("                PRODUTOS\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o Identificador do Produto: ");
-	scanf("%i", &id);
+	printf("Insira o ID (Identificador) do Produto: ");
+	scanf("%i", &rgs.id);
 	
 	printf("Insira o endereço do imóvel: ");
-	scanf("%s", endereco);
+	scanf("%s", rgs.endereco);
 	
 	printf("Insira o valor do imóvel: ");
-	scanf("%f", &valor);
+	scanf("%f", &rgs.valor);
 	
 	printf("Qual é o status do imóvel? (1 - Vendido, 2 - À venda): ");
-	scanf("%i", &status);
-	
-	printf("%i \n", id);
-	printf("%i \n", status);
-	printf("%f \n", valor);
-	printf("%s \n", endereco);
+	scanf("%i", &rgs.status);
+	int exist = exist_register_products(ARQ_PRODUCTS, rgs.id);
 
-	scanf("%i", &status);
+	if (exist == 1) {
+		printf("\nEsse ID (Identificador) já está sendo usado.\n\n");
+	}
+	else {
+		if (arq != NULL) {
+			fprintf(arq, "%i %s %.2f %i\n", rgs.id, rgs.endereco, rgs.valor, rgs.status); 
+	    	printf("\nCadastro foi concluído ;)\n\n");
+		} 
+		else {
+			printf("\nAlgo deu errado ;(\n\n");
+		}
+    	fclose(arq);
+	}
 	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
 }

@@ -19,7 +19,6 @@ void interaction_seller() {
 		printf("Por favor, digite uma das opções para continuar: ");
 		scanf("%i", &option);
 	
-	
 		switch (option) {	
 					
 			case 1: 

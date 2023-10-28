@@ -42,7 +42,7 @@ void interaction_menu() {
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
-	system("color 17");
+	system("color 87");
 	interaction_menu();
 	
 	return 0;
