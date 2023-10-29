@@ -36,3 +36,23 @@ products search_products(char *arquivo, int id) {
     fclose(arq);
     return tmp; 
 }
+
+void remove(char *arquivo, int id) {
+	products tmp;
+	FILE *arq = fopen(arquivo, "r");
+	FILE *arq_temp = fopen("temp.txt", "w");
+	
+	while (!feof(arq)) {
+    	fscanf(arq, "%i %s %f %i", &tmp.id, tmp.endereco, &tmp.valor, &tmp.status);
+    	
+    	if (tmp.id != id) {
+    		fprintf(arq_temp, "%i %s %.2f %i\n", tmp.id, tmp.endereco, tmp.valor, tmp.status); 
+		}
+    }
+    
+    fclose(arq);
+    fclose(arq_temp);
+    
+    system("del products.txt");
+	system("rename temp.txt products.txt");
+}

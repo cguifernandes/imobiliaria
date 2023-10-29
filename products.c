@@ -29,7 +29,7 @@ void interaction_products() {
 				list_products();
 				break;
 			case 3: 
-				printf("Excluir");
+				remove_products();
 				break;
 			case 4: 
 				return;
@@ -112,6 +112,62 @@ void list_products() {
 		}
 		
 		printf("Status do imóvel: %s\n\n", status);
+    } else {
+        printf("\nProduto não encontrado. ;(\n\n");
+	}
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+}
+
+void remove_products() {
+	system("cls");
+	products rgs;
+	char status[7];
+	int option;
+	
+	printf("----------------------------------------\n\n");
+	printf("            EXCLUIR PRODUTOS\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o ID (Identificador) do produto: ");
+	scanf("%i", &rgs.id);
+	
+	products produto = search_products(ARQ_PRODUCTS, rgs.id);
+	
+	if (produto.id != -1) {
+		printf("ID (Identificador) do produto: %i\n", produto.id);
+		
+		printf("Endereço do imóvel: %s\n", produto.endereco);
+		
+		printf("Valor do imóvel: %.2f\n", produto.valor);
+		
+		if (produto.status == 1) {
+		    strcpy(status, "Vendido");
+		}
+		else {
+		    strcpy(status, "À venda");
+		}
+		
+		printf("Status do imóvel: %s\n\n", status);
+		
+		printf("Tem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
+		scanf("%i", &option);
+
+		while (option != 2) {
+		    if (option == 1) {
+		        remove(ARQ_PRODUCTS, rgs.id);
+		        printf("\nO Produto com o ID %i foi excluído\n\n", rgs.id);
+		        break;
+		    }
+		    else if (option == 2) {
+		        break;
+		    }
+		    else {
+		        printf("\nOpção inválida\n\n");
+		        break;
+		    }
+		}
     } else {
         printf("\nProduto não encontrado. ;(\n\n");
 	}

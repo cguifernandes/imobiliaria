@@ -15,7 +15,8 @@ void interaction_menu();
 void insert_products();
 void list_products();
 products search_products(char *arquivo, int id);
-char insert();
 int exist_register_products(char *arquivo, int id);
+void remove_products();
+void remove(char *arquivo, int id);
 
 #endif
