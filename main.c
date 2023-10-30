@@ -8,16 +8,16 @@ void interaction_menu() {
 	while (option != 4) {
 		system("cls");
 		printf("----------------------------------------\n\n");
-		printf("          MENU DE INTERAÇÃO\n\n");
+		printf("          MENU DE INTERAï¿½ï¿½O\n\n");
 		printf("----------------------------------------\n\n");
 		
-		printf("1 - Produtos\n");
+		printf("1 - Imoveis    \n");
 		printf("2 - Vendedores\n");
 		printf("3 - Clients\n");
 	//	printf("4 - Sobre a empresa\n");
 		printf("4 - Sair\n\n");
 		
-		printf("Por favor, digite uma das opções para continuar: ");
+		printf("Por favor, digite uma das opï¿½ï¿½es para continuar: ");
 		scanf("%i", &option);
 		
 		switch (option) {				
