@@ -111,3 +111,20 @@ void remove_seller(char *arquivo, int id) {
     system("del seller.txt");
 	system("rename teste.txt seller.txt");
 }
+//
+int exist_register_clients(char *arquivo, int id) {
+	FILE *arq = fopen(arquivo, "r");
+	clients tmp;
+	
+	while (!feof(arq)) {
+		fscanf(arq,"%i %s %s\n", &tmp.id, &tmp.nome, &tmp.endereco);
+		if (tmp.id == id) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	fclose(arq);
+}

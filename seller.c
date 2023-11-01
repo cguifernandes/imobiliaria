@@ -142,7 +142,7 @@ void remove_seller() {
 		
 		printf("A quantidade de Vendas do vendedor e : %i\n\n", vendedor.qtdVendas);
 		
-		printf("Tem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
+		printf("Tem certeza que deseja excluir esse vendedor? (1 - Sim, 2 - Não): ");
 		scanf("%i", &option);
 
 		while (option != 2) {

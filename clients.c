@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "functions.h"
+#define ARQ_CLIENTS "clients.txt"
 
 void interaction_clients() {
 	int option;
@@ -22,8 +24,8 @@ void interaction_clients() {
 		switch (option) {
 						
 			case 1: 
-				printf("1");
-				break;
+				insert_clients ();
+				return;
 			case 2: 
 				printf("2");
 				break;
@@ -39,3 +41,45 @@ void interaction_clients() {
 	
 	getchar();
 }
+
+void insert_clients (){
+	system("cls");
+	clients ins;
+	FILE *arq = fopen(ARQ_CLIENTS, "a+");
+	
+	printf("----------------------------------------\n\n");
+	printf("         CADASTRAR CLIENTE\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira qual e o CPF (Identificador) do cliente: ");
+	scanf("%i", &ins.id);
+	
+	printf("Insira o nome do cliente: ");
+	scanf("%s", ins.nome);
+	
+	printf("Insira o endereco de recidencia do cliente: ");
+	scanf("%s", ins.endereco);
+	
+	int exist = exist_register_clients(ARQ_CLIENTS, ins.id);
+	
+		if (exist == 1) {
+		printf("\nEsse ID (Identificador) já está sendo usado.\n\n");
+	}
+	
+	else {
+		if (arq != NULL) {
+			fprintf(arq, "%i %s %s\n", ins.id, ins.nome, ins.endereco); 
+	    	printf("\nCadastro foi concluído ;)\n\n");
+		} 
+		else {
+			printf("\nAlgo deu errado ;(\n\n");
+		}
+    	fclose(arq);
+	}
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+
+}
+
+
