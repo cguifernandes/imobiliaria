@@ -94,7 +94,7 @@ void list_products() {
 	printf("Insira o ID (Identificador) do produto: ");
 	scanf("%i", &rgs.id);
 	
-	products produto = search_products(ARQ_PRODUCTS, rgs.id);
+	products produto = search_products(ARQ_PRODUCTS, rgs.id);   
 	
 	if (produto.id != -1) {
 		printf("\nProduto encontrado. :)\n\n");
