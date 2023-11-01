@@ -5,19 +5,19 @@
 void interaction_menu() {
 	int option = 0;
 	
-	while (option != 4) {
+	while (option != 5) {
 		system("cls");
 		printf("----------------------------------------\n\n");
-		printf("          MENU DE INTERAï¿½ï¿½O\n\n");
+		printf("           MENU DE INTERAÇÃO\n\n");
 		printf("----------------------------------------\n\n");
 		
 		printf("1 - Imoveis    \n");
 		printf("2 - Vendedores\n");
 		printf("3 - Clients\n");
-	//	printf("4 - Sobre a empresa\n");
-		printf("4 - Sair\n\n");
+		printf("4 - Sobre a empresa\n");
+		printf("5 - Sair\n\n");
 		
-		printf("Por favor, digite uma das opï¿½ï¿½es para continuar: ");
+		printf("Por favor, digite uma das opções para continuar: ");
 		scanf("%i", &option);
 		
 		switch (option) {				
@@ -31,6 +31,9 @@ void interaction_menu() {
 				interaction_clients();
 				break;
 			case 4:
+				about();
+				break;
+			case 5:
 				return;
 			default:
 				break;
@@ -40,6 +43,22 @@ void interaction_menu() {
 	}
 }
 
+void about() {
+	system("cls");
+	printf("----------------------------------------\n\n");
+	printf("                 SOBRE\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Nome da empresa: Primeira Residência Imobiliária.\n");
+	printf("CPNJ da empresa: 12.319.648/0001-20.\n");
+	printf("Endereço atual: Rua das Flores, 123, Bairro dos Sonhos, São Paulo.\n");
+	printf("CEP: 12042-618.\n");
+	printf("Atual proprietário: Laura Mendes.\n\n");
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+}
+
 int main() {
 	setlocale(LC_ALL, "Portuguese");
 	system("color 87");
@@ -47,3 +66,4 @@ int main() {
 	
 	return 0;
 }
+

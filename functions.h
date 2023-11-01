@@ -38,5 +38,10 @@ int exist_register_seller(char *arquivo, int id);
 int exist_register_clients(char *arquivo, int id);
 void remove_products();
 void remove(char *arquivo, int id);
+<<<<<<< HEAD
+void about();
+
+=======
 void remove_seller(char *arquivo, int id);
+>>>>>>> 2c27ffa189c514e86277d3072ed066b5eeb0f405
 #endif
