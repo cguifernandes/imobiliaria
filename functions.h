@@ -18,5 +18,6 @@ products search_products(char *arquivo, int id);
 int exist_register_products(char *arquivo, int id);
 void remove_products();
 void remove(char *arquivo, int id);
+void about();
 
 #endif
