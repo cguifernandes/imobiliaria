@@ -8,6 +8,7 @@ int exist_register_products(char *arquivo, int id) {
 	
 	while (!feof(arq)) {
 		fscanf(arq,"%i %i %f %s\n", &tmp.id, &tmp.status, &tmp.valor, tmp.endereco);
+		
 		if (tmp.id == id) {
 			fclose(arq);
 			return 1;
@@ -25,6 +26,7 @@ int exist_register_seller(char *arquivo, int id) {
 	
 	while (!feof(arq)) {
 		fscanf(arq,"%i %i %f %s\n", &tmp.id, &tmp.qtdVendas, &tmp.salario, tmp.nome);
+		
 		if (tmp.id == id) {
 			fclose(arq);
 			return 1;
@@ -36,14 +38,13 @@ int exist_register_seller(char *arquivo, int id) {
 	}
 }
 
-int exist_register_clients(char *arquivo, int cpf) {
+int exist_register_clients(char *arquivo, int id) {
 	FILE *arq = fopen(arquivo, "r");
 	clients tmp;
 	
 	while (!feof(arq)) {
-		fscanf(arq,"%i %s %s\n", &tmp.cpf, &tmp.nome, &tmp.endereco);
-		
-		if (tmp.cpf == cpf) {
+		fscanf(arq,"%i %s %s\n", &tmp.id, tmp.nome, tmp.endereco);
+		if (tmp.id == id) {
 			fclose(arq);
 			return 1;
 		}
@@ -93,19 +94,19 @@ seller search_seller(char *arquivo, int id) {
     return tmp; 
 }
 
-clients search_clients(char *arquivo, int cpf) {
+clients search_clients(char *arquivo, int id) {
     FILE *arq = fopen(arquivo, "r");
     clients tmp;
     
    	while (!feof(arq)) {
-    	fscanf(arq, "%i %s %s", &tmp.cpf, tmp.nome, tmp.endereco);
+    	fscanf(arq, "%i %s %s", &tmp.id, tmp.nome, tmp.endereco);
     	
-        if (tmp.cpf == cpf) {
+        if (tmp.id == id) {
         	fclose(arq);
             return tmp; 
         }
         else {
-        	tmp.cpf = -1;
+        	tmp.id = -1;
 		}
     }
 
@@ -133,16 +134,16 @@ void del_products(char *arquivo, int id) {
 	system("rename temp.txt products.txt");
 }
 
-void del_clients(char *arquivo, int cpf) {
+void del_clients(char *arquivo, int id) {
 	clients tmp;
 	FILE *arq = fopen(arquivo, "r");
 	FILE *arq_temp = fopen("temp.txt", "w");
 	
 	while (!feof(arq)) {
-    	fscanf(arq, "%i %s %s", &tmp.cpf, tmp.nome, tmp.endereco);
+    	fscanf(arq, "%i %s %s", &tmp.id, tmp.nome, tmp.endereco);
     	
-    	if (tmp.cpf != cpf) {
-    		fprintf(arq_temp, "%i %s %s\n", tmp.cpf, tmp.nome, tmp.endereco);
+    	if (tmp.id != id) {
+    		fprintf(arq_temp, "%i %s %s\n", tmp.id, tmp.nome, tmp.endereco);
 		}
     }
     

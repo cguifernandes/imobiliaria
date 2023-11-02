@@ -7,79 +7,83 @@
 void interaction_seller() {
 	int option = 0;
 	
-	while (option != 4) {
+	while (option != 5) {
 		system("cls");
 		printf("----------------------------------------\n\n");
 		printf("               VENDEDOR\n\n");
 		printf("----------------------------------------\n\n");
 		
-		printf("1 - Cadastrar um vendedor\n");
-		printf("2 - Listar um vendedor\n");
-		printf("3 - Excluir um vendedor\n");
-		printf("4 - Voltar ao menu de interação\n\n");
+		printf("1 - Cadastrar um(a) vendedor(a)\n");
+		printf("2 - Listar um(a) vendedor(a)\n");
+		printf("3 - Alterar cadastro de um(a) vendedor(a)\n");
+		printf("4 - Excluir cadastro um(a) vendedor(a)\n");
+		printf("5 - Voltar ao menu de interação\n\n");
 		
 		printf("Por favor, digite uma das opções para continuar: ");
 		scanf("%i", &option);
 	
-		switch (option) {	
-					
+		switch (option) {		
 			case 1: 
 				insert_seller();
-				return;
+				break;
 			case 2: 
 				list_seller();
-				return;
+				break;
 			case 3: 
-				remove_seller();
-				return;
+				update_seller();
+				break;
 			case 4: 
+				remove_seller();
+				break;
+			case 5: 
 				return;
 			default:
 				break;
 		}
+		
+		getchar();
 	}
-	
-	getchar();
 }
 
 void insert_seller() {
 	system("cls");
-	seller cads;
+	seller rgs;
 	FILE *arq = fopen(ARQ_SELLER, "a+");
 	
 	printf("----------------------------------------\n\n");
 	printf("         CADASTRAR VENDEDOR\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira qual será o ID (Identificador) do Vendedor: ");
-	scanf("%i", &cads.id);
+	printf("Insira um ID (Identificador) ao vendedor(a): ");
+	scanf("%i", &rgs.id);
 	
-	printf("Insira o nome do vendedor: ");
-	scanf("%s", cads.nome);
+	printf("Insira o nome do(a) vendedor(a): ");
+	scanf("%s", rgs.nome);
 	
-	printf("Insira qual é o salário do vendedor: ");
-	scanf("%f", &cads.salario);
+	printf("Insira qual o salário do(a) vendedor(a): ");
+	scanf("%f", &rgs.salario);
 	
-	printf("Insira a quantidade de vendas do vendedor: ");
-	scanf("%i", &cads.qtdVendas);
+	printf("Insira a quantidade de vendas do(a) vendedor(a) desse mês: ");
+	scanf("%i", &rgs.qtdVendas);
 	
-	int exist = exist_register_seller(ARQ_SELLER, cads.id);
+	int exist = exist_register_seller(ARQ_SELLER, rgs.id);
 	
-		if (exist == 1) {
+	if (exist == 1) {
 		printf("\nEsse ID (Identificador) já está sendo usado.\n\n");
 	}
 	
 	else {
 		if (arq != NULL) {
-			fprintf(arq, "%i %s %.2f %i\n", cads.id, cads.nome, cads.salario, cads.qtdVendas); 
+			fprintf(arq, "%i %s %.2f %i\n", rgs.id, rgs.nome, rgs.salario, rgs.qtdVendas); 
 	    	printf("\nCadastro foi concluído ;)\n\n");
+				
 		} 
 		else {
 			printf("\nAlgo deu errado ;(\n\n");
 		}
-    	fclose(arq);
 	}
-	
+
+	fclose(arq);
 	printf("Pressione qualquer tecla para prosseguir: ");
 	getchar();
 
@@ -87,29 +91,29 @@ void insert_seller() {
 
 void list_seller() {
 	system("cls");
-	seller cads;
+	seller rgs;
 	
 	printf("----------------------------------------\n\n");
-	printf("          LISTAR VENDEDORES\n\n");
+	printf("            LISTAR VENDEDORES           \n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o ID (Identificador) do vendedor: ");
-	scanf("%i", &cads.id);
+	printf("Insira o ID (Identificador) do(a) vendedor: ");
+	scanf("%i", &rgs.id);
 	
-	seller vendedor = search_seller(ARQ_SELLER, cads.id);   
+	seller vendedor = search_seller(ARQ_SELLER, rgs.id);   
 	
 	if (vendedor.id != -1) {
-		printf("\nVendedor encontrado. :)\n\n");
-		printf("ID (Identificador) do vendedor: %i\n", vendedor.id);
+		printf("\nVendedor(a) encontrado. :)\n\n");
+		printf("ID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
 		
-		printf("Nome do vendedor(a): %s\n", vendedor.nome);
+		printf("Nome do(a) vendedor(a): %s\n", vendedor.nome);
 		
-		printf("O salário do vendedor(a): %.2f\n", vendedor.salario);
+		printf("Salário do(a) vendedor(a): %.2f\n", vendedor.salario);
 		
-		printf("A quantidade de vendas do vendedor(a): %i\n\n", vendedor.qtdVendas);
+		printf("A quantidade de vendas do(a) vendedor(a): %i\n\n", vendedor.qtdVendas);
 		
     } else {
-        printf("\nVendedor não encontrado. ;(\n\n");
+        printf("\nVendedor(a) não encontrado. ;(\n\n");
 	}
 	
 	printf("Pressione qualquer tecla para prosseguir: ");
@@ -118,36 +122,34 @@ void list_seller() {
 
 void remove_seller() {
 	system("cls");
-	seller cads;
-	char status[7];
+	seller rgs;
 	int option;
 	
 	printf("----------------------------------------\n\n");
 	printf("         EXCLUIR VENDEDORES\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o ID (Identificador) do vendedor: ");
-	scanf("%i", &cads.id);
+	printf("Insira o ID (Identificador) do(a) vendedor(a): ");
+	scanf("%i", &rgs.id);
 	
-	seller vendedor = search_seller(ARQ_SELLER, cads.id);
+	seller vendedor = search_seller(ARQ_SELLER, rgs.id);
 	
 	if (vendedor.id != -1) {
-		printf("\nVendedor encontrado. :)\n\n");
-		printf("ID (Identificador) do vendedor: %i\n", vendedor.id);
+		printf("ID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
 		
-		printf("Nome do vendedor(a): %s\n", vendedor.nome);
+		printf("Nome do(a) vendedor(a): %s\n", vendedor.nome);
 		
-		printf("O salário do vendedor(a): %.2f\n", vendedor.salario);
+		printf("O salário do(a) vendedor(a): %.2f\n", vendedor.salario);
 		
-		printf("A quantidade de vendas do vendedor(a): %i\n\n", vendedor.qtdVendas);
+		printf("Quantidade de vendas do(a) vendedor(a): %i\n\n", vendedor.qtdVendas);
 		
-		printf("Tem certeza que deseja excluir esse vendedor? (1 - Sim, 2 - Não): ");
+		printf("Tem certeza que deseja excluir esse cadastro? (1 - Sim, 2 - Não): ");
 		scanf("%i", &option);
 
 		while (option != 2) {
 		    if (option == 1) {
-		        del_seller(ARQ_SELLER, cads.id);
-		        printf("\nO Vendedor com o ID %i foi excluído\n\n", cads.id);
+		        del_seller(ARQ_SELLER, rgs.id);
+		        printf("\nO cadastro do(a) Vendedor(a) com o ID %i foi excluído\n\n", rgs.id);
 		        break;
 		    }
 		    else if (option == 2) {
@@ -159,7 +161,54 @@ void remove_seller() {
 		    }
 		}
     } else {
-        printf("\nVendedor não encontrado. ;(\n\n");
+        printf("\nVendedor(a) não encontrado. ;(\n\n");
+	}
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+}
+
+void update_seller() {
+	system("cls");
+	seller rgs, novo;
+	
+	printf("----------------------------------------\n\n");
+	printf("           ALTERAR VENDEDORES           \n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o ID (Identificador) do produto: ");
+	scanf("%i", &rgs.id);
+	
+	seller vendedor = search_seller(ARQ_SELLER, rgs.id);
+	
+	if (vendedor.id != -1) {
+		printf("\nID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
+		
+		printf("Nome do(a) vendedor(a): %s\n", vendedor.nome);
+		
+		printf("O salário do(a) vendedor(a): %.2f\n", vendedor.salario);
+		
+		printf("Quantidade de vendas do(a) vendedor(a): %i\n\n", vendedor.qtdVendas);
+		
+		printf("Novo cadastro\n\n");
+
+		printf("Insira o novo nome do(a) vendedor(a): ");
+		scanf("%s", novo.nome);
+		
+		printf("Insira o novo salário do(a) vendedor(a): ");
+		scanf("%f", &novo.salario);
+
+		printf("Insira a nova quantidade de vendas do(a) vendedor(a): ");
+		scanf("%i", &novo.qtdVendas);
+		
+		del_seller(ARQ_SELLER, vendedor.id);
+		
+		FILE *arq = fopen(ARQ_SELLER, "a+");
+		fprintf(arq, "%i %s %.2f %i\n", rgs.id, novo.nome, novo.salario, novo.qtdVendas);
+	    printf("Novo cadastro foi concluído ;)\n\n");
+	    fclose(arq);
+    } else {
+		printf("\Vendedor(a) não encontrado. ;(\n\n");
 	}
 	
 	printf("Pressione qualquer tecla para prosseguir: ");

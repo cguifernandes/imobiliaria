@@ -7,7 +7,7 @@
 void interaction_clients() {
 	int option;
 	
-	while (option != 4) {
+	while (option != 5) {
 		system("cls");
 		printf("----------------------------------------\n\n");
 		printf("                CLIENTE\n\n");
@@ -15,62 +15,61 @@ void interaction_clients() {
 		
 		printf("1 - Cadastrar um cliente\n");
 		printf("2 - Listar um cliente\n");
-		printf("3 - Excluir um cliente\n");
-		printf("4 - Voltar ao menu de interação\n\n");
+		printf("3 - Alterar cadastro de um cliente\n");
+		printf("4 - Excluir um cliente\n");
+		printf("5 - Voltar ao menu de interação\n\n");
 		
 		printf("Por favor, digite uma das opções para continuar: ");
 		scanf("%i", &option);
 		
-		switch (option) {
-						
+		switch (option) {			
 			case 1: 
 				insert_clients();
-				return;
+				break;
 			case 2: 
 				list_clients();
-				return;
+				break;
 			case 3: 
-				remove_clients();
-				return;
+				update_clients();
+				break;
 			case 4: 
+				remove_clients();
+				break;
+			case 5: 
 				return;
 			default:
 				break;
 		}
+		
+		getchar();
 	}
-	
-	getchar();
 }
 
 void insert_clients() {
 	system("cls");
-	clients ins;
+	clients rgs;
 	FILE *arq = fopen(ARQ_CLIENTS, "a+");
 	
 	printf("----------------------------------------\n\n");
 	printf("          CADASTRAR CLIENTE\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o CPF do cliente (Sem caracteres especiais, apenas os números): ");
-	scanf("%f", &ins.cpf);
+	printf("Insira um ID (Identificador) ao cliente: ");
+	scanf("%i", &rgs.id);
 	
 	printf("Insira o nome do cliente: ");
-	scanf("%s", ins.nome);
+	scanf("%s", rgs.nome);
 	
 	printf("Insira o endereço do cliente: ");
-	scanf("%s", ins.endereco);
+	scanf("%s", rgs.endereco);
 	
-	int exist = exist_register_clients(ARQ_CLIENTS, ins.cpf);
-	
-	printf("%f", ins.cpf);
-	
+	int exist = exist_register_clients(ARQ_CLIENTS, rgs.id);
+
 	if (exist == 1) {
-		printf("\nEsse CPF já está sendo usado.\n\n");
-	}
-	
-	else {
+		printf("\nEsse ID (Identificador) já está sendo usado.\n\n");
+	} else {
 		if (arq != NULL) {
-			fprintf(arq, "%i %s %s\n", ins.cpf, ins.nome, ins.endereco); 
+			fprintf(arq, "%i %s %s\n", rgs.id, rgs.nome, rgs.endereco); 
 	    	printf("\nCadastro foi concluído ;)\n\n");
 		} 
 		else {
@@ -91,14 +90,14 @@ void list_clients() {
 	printf("          LISTAR CLIENTES\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o CPF do cliente (Sem caracteres especiais, apenas os números): ");
-	scanf("%i", &ins.cpf);
+	printf("Insira o ID (Identificador) do cliente: ");
+	scanf("%i", &ins.id);
 	
-	clients cliente = search_clients(ARQ_CLIENTS, ins.cpf);   
+	clients cliente = search_clients(ARQ_CLIENTS, ins.id);   
 	
-	if (cliente.cpf != -1) {
+	if (cliente.id != -1) {
 		printf("\nCliente encontrado. :)\n\n");
-		printf("ID (Identificador) do cliente: %i\n", cliente.cpf);
+		printf("ID (Identificador) do cliente: %i\n", cliente.id);
 		
 		printf("Nome do cliente: %s\n", cliente.nome);
 		
@@ -121,25 +120,25 @@ void remove_clients() {
 	printf("            EXCLUIR CLIENTES\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o CPF do cliente (Sem caracteres especiais, apenas os números): ");
-	scanf("%i", &rgs.cpf);
+	printf("Insira o ID (Identificador) do cliente: ");
+	scanf("%i", &rgs.id);
 	
-	clients cliente = search_clients(ARQ_CLIENTS, rgs.cpf);
+	clients cliente = search_clients(ARQ_CLIENTS, rgs.id);
 	
-	if (cliente.cpf != -1) {
-		printf("\nID (Identificador) do cliente: %i\n", cliente.cpf);
+	if (cliente.id != -1) {
+		printf("\nID do cliente: %i\n", cliente.id);
 		
 		printf("Nome do cliente: %s\n", cliente.nome);
 		
-		printf("Endereco do cliente: %s\n", cliente.endereco);
+		printf("Endereço do cliente: %s\n", cliente.endereco);
 		
-		printf("\nTem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
+		printf("\nTem certeza que deseja excluir esse cadastro? (1 - Sim, 2 - Não): ");
 		scanf("%i", &option);
 
 		while (option != 2) {
 		    if (option == 1) {
-		        del_clients(ARQ_CLIENTS, rgs.cpf);
-		        printf("\nO Produto com o ID %i foi excluído\n\n", rgs.cpf);
+		        del_clients(ARQ_CLIENTS, rgs.id);
+		        printf("\nO Produto com o ID %i foi excluído\n\n", rgs.id);
 		        break;
 		    }
 		    else if (option == 2) {
@@ -158,3 +157,45 @@ void remove_clients() {
 	getchar();
 }
 
+void update_clients() {
+	system("cls");
+	clients rgs, novo;
+	
+	printf("----------------------------------------\n\n");
+	printf("            ALTERAR CLIENTES\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o ID (Identificador) do cliente: ");
+	scanf("%i", &rgs.id);
+	
+	clients cliente = search_clients(ARQ_CLIENTS, rgs.id);
+	
+	if (cliente.id != -1) {
+		printf("\nID do cliente: %i\n", cliente.id);
+		
+		printf("Nome do cliente: %s\n", cliente.nome);
+		
+		printf("Endereço do cliente: %s\n", cliente.endereco);
+		
+		printf("\nNovo cadastro\n\n");
+		
+		printf("Insira o novo nome do cliente: ");
+		scanf("%s", novo.nome);
+		
+		printf("Insira o novo endereço do cliente: ");
+		scanf("%s", novo.endereco);
+		
+
+		del_clients(ARQ_CLIENTS, cliente.id);
+		
+		FILE *arq = fopen(ARQ_CLIENTS, "a+");
+		fprintf(arq, "%i %s %s\n", rgs.id, novo.nome, novo.endereco); 
+	    printf("\nNovo cadastro foi concluído ;)\n\n");
+	    fclose(arq);
+    } else {
+		printf("\nProduto não encontrado. ;(\n\n");
+	}
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+}

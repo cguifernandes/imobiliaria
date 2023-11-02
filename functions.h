@@ -16,7 +16,7 @@ typedef struct{
 } seller;
 
 typedef struct{
-	float cpf;
+	int id;
 	char nome[101];
 	char endereco[101];
 } clients;
@@ -37,19 +37,23 @@ void list_clients();
 
 products search_products(char *arquivo, int id);
 seller search_seller(char *arquivo, int id);
-clients search_clients(char *arquivo, int cpf);
+clients search_clients(char *arquivo, int id);
 
 int exist_register_products(char *arquivo, int id);
 int exist_register_seller(char *arquivo, int id);
-int exist_register_clients(char *arquivo, int cpf);
+int exist_register_clients(char *arquivo, int id);
 
 void del_products(char *arquivo, int id);
-void del_clients(char *arquivo, int cpf);
+void del_clients(char *arquivo, int id);
 void del_seller(char *arquivo, int id);
 
 void remove_products();
 void remove_clients();
 void remove_seller();
+
+void update_products();
+void update_clients();
+void update_seller();
 
 void about();
 

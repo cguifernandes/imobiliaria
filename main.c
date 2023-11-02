@@ -40,7 +40,7 @@ void interaction_menu() {
 				break;
 		}
 			
-			getchar();
+		getchar();
 	}
 }
 

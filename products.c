@@ -7,7 +7,7 @@
 void interaction_products() {
 	int option = 0;
 	
-	while (option != 4) {
+	while (option != 5) {
 		system("cls");
 		printf("----------------------------------------\n\n");
 		printf("               PRODUTOS\n\n");
@@ -15,8 +15,9 @@ void interaction_products() {
 		
 		printf("1 - Cadastrar um produtos\n");
 		printf("2 - Listar um produtos\n");
-		printf("3 - Excluir um produto\n");
-		printf("4 - Voltar ao menu de interação\n\n");
+		printf("3 - Alterar um produtos\n");
+		printf("4 - Excluir um produto\n");
+		printf("5 - Voltar ao menu de interação\n\n");
 		
 		printf("Por favor, digite uma das opções para continuar: ");
 		scanf("%i", &option);
@@ -24,14 +25,17 @@ void interaction_products() {
 		switch (option) {	
 			case 1: 
 				insert_products();
-				return;
+				break;
 			case 2: 
 				list_products();
-				return;
+				break;
 			case 3: 
+				update_products();
+				break;
+			case 4:
 				remove_products();
-				return;
-			case 4: 
+				break;
+			case 5: 
 				return;
 			default:
 				break;
@@ -61,6 +65,7 @@ void insert_products() {
 	
 	printf("Qual é o status do imóvel? (1 - Vendido, 2 - À venda): ");
 	scanf("%i", &rgs.status);
+	
 	int exist = exist_register_products(ARQ_PRODUCTS, rgs.id);
 
 	if (exist == 1) {
@@ -108,7 +113,7 @@ void list_products() {
 		    strcpy(status, "Vendido");
 		}
 		else {
-		    strcpy(status, "À venda");
+		    strcpy(status, "ï¿½ venda");
 		}
 		
 		printf("Status do imóvel: %s\n\n", status);
@@ -116,7 +121,7 @@ void list_products() {
         printf("\nProduto não encontrado. ;(\n\n");
 	}
 	
-	printf("\nPressione qualquer tecla para prosseguir: ");
+	printf("Pressione qualquer tecla para prosseguir: ");
 	getchar();
 }
 
@@ -138,7 +143,7 @@ void remove_products() {
 	if (produto.id != -1) {
 		printf("\nID (Identificador) do produto: %i\n", produto.id);
 		
-		printf("Endereço do imóvel: %s\n", produto.endereco);
+		printf("Endereï¿½o do imóvel: %s\n", produto.endereco);
 		
 		printf("Valor do imóvel: %.2f\n", produto.valor);
 		
@@ -151,7 +156,7 @@ void remove_products() {
 		
 		printf("Status do imóvel: %s\n", status);
 		
-		printf("\nTem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
+		printf("\nTem certeza que deseja excluir esse cadastro? (1 - Sim, 2 - Não): ");
 		scanf("%i", &option);
 
 		while (option != 2) {
@@ -170,6 +175,60 @@ void remove_products() {
 		}
     } else {
         printf("\nProduto não encontrado. ;(\n\n");
+	}
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+}
+
+void update_products() {
+	system("cls");
+	products rgs, novo;
+	char status[7];
+	
+	printf("----------------------------------------\n\n");
+	printf("            ALTERAR PRODUTOS\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o ID (Identificador) do produto: ");
+	scanf("%i", &rgs.id);
+	
+	products produto = search_products(ARQ_PRODUCTS, rgs.id);
+	
+	if (produto.id != -1) {
+		printf("\nID (Identificador) do produto: %i\n", produto.id);
+		
+		printf("Endereço do imóvel: %s\n", produto.endereco);
+		
+		printf("Valor do imóvel: %.2f\n", produto.valor);
+		
+		if (produto.status == 1) {
+		    strcpy(status, "Vendido");
+		}
+		else {
+		    strcpy(status, "À venda");
+		}
+		printf("Status do imóvel: %s\n", status);
+		
+		printf("\nNovo cadastro\n\n");
+		
+		printf("Insira o novo endereço do imóvel: ");
+		scanf("%s", novo.endereco);
+		
+		printf("Insira o novo valor do imóvel: ");
+		scanf("%f", &novo.valor);
+		
+		printf("Qual é o status do imóvel? (1 - Vendido, 2 - À venda): ");
+		scanf("%i", &novo.status);
+		
+		del_products(ARQ_PRODUCTS, produto.id);
+		
+		FILE *arq = fopen(ARQ_PRODUCTS, "a+");
+		fprintf(arq, "%i %s %.2f %i\n", rgs.id, novo.endereco, novo.valor, novo.status); 
+	    printf("\nNovo cadastro foi concluído ;)\n\n");
+	    fclose(arq);
+    } else {
+		printf("\nProduto não encontrado. ;(\n\n");
 	}
 	
 	printf("Pressione qualquer tecla para prosseguir: ");
