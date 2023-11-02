@@ -27,8 +27,8 @@ void interaction_clients() {
 				insert_clients ();
 				return;
 			case 2: 
-				printf("2");
-				break;
+				list_clients();
+				return;
 			case 3: 
 				printf("3");
 				break;
@@ -82,4 +82,33 @@ void insert_clients (){
 
 }
 
+void list_clients() {
+	system("cls");
+	clients ins;
+	char status[7];
+	
+	printf("----------------------------------------\n\n");
+	printf("          LISTAR CLIENTES\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o CPF (Identificador) do cliente: ");
+	scanf("%i", &ins.id);
+	
+	clients clientes = search_clients(ARQ_CLIENTS, ins.id);   
+	
+	if (clientes.id != -1) {
+		printf("\nCliente encontrado. :)\n\n");
+		printf("CPF (Identificador) do cliente: %i\n", clientes.id);
+		
+		printf("Nome do cliente : %s\n", clientes.nome);
+		
+		printf("Endereco do cliente : %s\n", clientes.endereco);
+		
+    } else {
+        printf("\nCliente não encontrado. ;(\n\n");
+	}
+	
+	printf("Pressione qualquer tecla para prosseguir: ");
+	getchar();
+}
 

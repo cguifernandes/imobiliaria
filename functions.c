@@ -128,3 +128,22 @@ int exist_register_clients(char *arquivo, int id) {
 	
 	fclose(arq);
 }
+
+clients search_clients(char *arquivo, int id) {
+    FILE *arq = fopen(arquivo, "r");
+     clients tmp;
+    
+   	while (!feof(arq)) {
+    	fscanf(arq, "%i %s %s", &tmp.id, tmp.nome, &tmp.endereco);
+        if (tmp.id == id) {
+            return tmp; 
+        }
+        else {
+        	tmp.id = -1;
+		}
+    }
+
+    fclose(arq);
+    return tmp; 
+}
+
