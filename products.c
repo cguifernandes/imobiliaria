@@ -27,10 +27,10 @@ void interaction_products() {
 				return;
 			case 2: 
 				list_products();
-				break;
+				return;
 			case 3: 
 				remove_products();
-				break;
+				return;
 			case 4: 
 				return;
 			default:
@@ -41,7 +41,7 @@ void interaction_products() {
 	}
 }
 
-void insert_products (){
+void insert_products() {
 	system("cls");
 	products rgs;
 	FILE *arq = fopen(ARQ_PRODUCTS, "a+");
@@ -50,7 +50,7 @@ void insert_products (){
 	printf("           CADASTRAR PRODUTOS\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o ID (Identificador) do produto: ");
+	printf("Insira um ID (Identificador) ao produto: ");
 	scanf("%i", &rgs.id);
 	
 	printf("Insira o endereço do imóvel: ");
@@ -75,9 +75,9 @@ void insert_products (){
 		else {
 			printf("\nAlgo deu errado ;(\n\n");
 		}
-    	fclose(arq);
 	}
 	
+	fclose(arq);
 	printf("Pressione qualquer tecla para prosseguir: ");
 	getchar();
 }
@@ -116,7 +116,7 @@ void list_products() {
         printf("\nProduto não encontrado. ;(\n\n");
 	}
 	
-	printf("Pressione qualquer tecla para prosseguir: ");
+	printf("\nPressione qualquer tecla para prosseguir: ");
 	getchar();
 }
 
@@ -136,7 +136,7 @@ void remove_products() {
 	products produto = search_products(ARQ_PRODUCTS, rgs.id);
 	
 	if (produto.id != -1) {
-		printf("ID (Identificador) do produto: %i\n", produto.id);
+		printf("\nID (Identificador) do produto: %i\n", produto.id);
 		
 		printf("Endereço do imóvel: %s\n", produto.endereco);
 		
@@ -149,14 +149,14 @@ void remove_products() {
 		    strcpy(status, "À venda");
 		}
 		
-		printf("Status do imóvel: %s\n\n", status);
+		printf("Status do imóvel: %s\n", status);
 		
-		printf("Tem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
+		printf("\nTem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
 		scanf("%i", &option);
 
 		while (option != 2) {
 		    if (option == 1) {
-		        remove(ARQ_PRODUCTS, rgs.id);
+		        del_products(ARQ_PRODUCTS, rgs.id);
 		        printf("\nO Produto com o ID %i foi excluído\n\n", rgs.id);
 		        break;
 		    }

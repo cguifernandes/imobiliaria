@@ -42,7 +42,7 @@ void interaction_seller() {
 	getchar();
 }
 
-void insert_seller (){
+void insert_seller() {
 	system("cls");
 	seller cads;
 	FILE *arq = fopen(ARQ_SELLER, "a+");
@@ -57,10 +57,10 @@ void insert_seller (){
 	printf("Insira o nome do vendedor: ");
 	scanf("%s", cads.nome);
 	
-	printf("Insira qual e o salario do vendedor: ");
+	printf("Insira qual é o salário do vendedor: ");
 	scanf("%f", &cads.salario);
 	
-	printf("Insira a quantidade de vendas atual do vendedor: ");
+	printf("Insira a quantidade de vendas do vendedor: ");
 	scanf("%i", &cads.qtdVendas);
 	
 	int exist = exist_register_seller(ARQ_SELLER, cads.id);
@@ -88,7 +88,6 @@ void insert_seller (){
 void list_seller() {
 	system("cls");
 	seller cads;
-	char status[7];
 	
 	printf("----------------------------------------\n\n");
 	printf("          LISTAR VENDEDORES\n\n");
@@ -103,11 +102,11 @@ void list_seller() {
 		printf("\nVendedor encontrado. :)\n\n");
 		printf("ID (Identificador) do vendedor: %i\n", vendedor.id);
 		
-		printf("Nome do Vendedor : %s\n", vendedor.nome);
+		printf("Nome do vendedor(a): %s\n", vendedor.nome);
 		
-		printf("O salario do vendedor : %.2f\n", vendedor.salario);
+		printf("O salário do vendedor(a): %.2f\n", vendedor.salario);
 		
-		printf("A quantidade de Vendas do vendedor e : %i\n\n", vendedor.qtdVendas);
+		printf("A quantidade de vendas do vendedor(a): %i\n\n", vendedor.qtdVendas);
 		
     } else {
         printf("\nVendedor não encontrado. ;(\n\n");
@@ -127,7 +126,7 @@ void remove_seller() {
 	printf("         EXCLUIR VENDEDORES\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o ID (Identificador) do vendedor : ");
+	printf("Insira o ID (Identificador) do vendedor: ");
 	scanf("%i", &cads.id);
 	
 	seller vendedor = search_seller(ARQ_SELLER, cads.id);
@@ -136,18 +135,18 @@ void remove_seller() {
 		printf("\nVendedor encontrado. :)\n\n");
 		printf("ID (Identificador) do vendedor: %i\n", vendedor.id);
 		
-		printf("Nome do Vendedor : %s\n", vendedor.nome);
+		printf("Nome do vendedor(a): %s\n", vendedor.nome);
 		
-		printf("O salario do vendedor : %.2f\n", vendedor.salario);
+		printf("O salário do vendedor(a): %.2f\n", vendedor.salario);
 		
-		printf("A quantidade de Vendas do vendedor e : %i\n\n", vendedor.qtdVendas);
+		printf("A quantidade de vendas do vendedor(a): %i\n\n", vendedor.qtdVendas);
 		
 		printf("Tem certeza que deseja excluir esse vendedor? (1 - Sim, 2 - Não): ");
 		scanf("%i", &option);
 
 		while (option != 2) {
 		    if (option == 1) {
-		        remove_seller(ARQ_SELLER, cads.id);
+		        del_seller(ARQ_SELLER, cads.id);
 		        printf("\nO Vendedor com o ID %i foi excluído\n\n", cads.id);
 		        break;
 		    }

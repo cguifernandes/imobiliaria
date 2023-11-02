@@ -24,14 +24,14 @@ void interaction_clients() {
 		switch (option) {
 						
 			case 1: 
-				insert_clients ();
+				insert_clients();
 				return;
 			case 2: 
 				list_clients();
 				return;
 			case 3: 
-				printf("3");
-				break;
+				remove_clients();
+				return;
 			case 4: 
 				return;
 			default:
@@ -42,70 +42,116 @@ void interaction_clients() {
 	getchar();
 }
 
-void insert_clients (){
+void insert_clients() {
 	system("cls");
 	clients ins;
 	FILE *arq = fopen(ARQ_CLIENTS, "a+");
 	
 	printf("----------------------------------------\n\n");
-	printf("         CADASTRAR CLIENTE\n\n");
+	printf("          CADASTRAR CLIENTE\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira qual e o CPF (Identificador) do cliente: ");
-	scanf("%i", &ins.id);
+	printf("Insira o CPF do cliente (Sem caracteres especiais, apenas os números): ");
+	scanf("%f", &ins.cpf);
 	
 	printf("Insira o nome do cliente: ");
 	scanf("%s", ins.nome);
 	
-	printf("Insira o endereco de recidencia do cliente: ");
+	printf("Insira o endereço do cliente: ");
 	scanf("%s", ins.endereco);
 	
-	int exist = exist_register_clients(ARQ_CLIENTS, ins.id);
+	int exist = exist_register_clients(ARQ_CLIENTS, ins.cpf);
 	
-		if (exist == 1) {
-		printf("\nEsse ID (Identificador) já está sendo usado.\n\n");
+	printf("%f", ins.cpf);
+	
+	if (exist == 1) {
+		printf("\nEsse CPF já está sendo usado.\n\n");
 	}
 	
 	else {
 		if (arq != NULL) {
-			fprintf(arq, "%i %s %s\n", ins.id, ins.nome, ins.endereco); 
+			fprintf(arq, "%i %s %s\n", ins.cpf, ins.nome, ins.endereco); 
 	    	printf("\nCadastro foi concluído ;)\n\n");
 		} 
 		else {
 			printf("\nAlgo deu errado ;(\n\n");
 		}
-    	fclose(arq);
 	}
 	
+	fclose(arq);
 	printf("Pressione qualquer tecla para prosseguir: ");
 	getchar();
-
 }
 
 void list_clients() {
 	system("cls");
 	clients ins;
-	char status[7];
 	
 	printf("----------------------------------------\n\n");
 	printf("          LISTAR CLIENTES\n\n");
 	printf("----------------------------------------\n\n");
 	
-	printf("Insira o CPF (Identificador) do cliente: ");
-	scanf("%i", &ins.id);
+	printf("Insira o CPF do cliente (Sem caracteres especiais, apenas os números): ");
+	scanf("%i", &ins.cpf);
 	
-	clients clientes = search_clients(ARQ_CLIENTS, ins.id);   
+	clients cliente = search_clients(ARQ_CLIENTS, ins.cpf);   
 	
-	if (clientes.id != -1) {
+	if (cliente.cpf != -1) {
 		printf("\nCliente encontrado. :)\n\n");
-		printf("CPF (Identificador) do cliente: %i\n", clientes.id);
+		printf("ID (Identificador) do cliente: %i\n", cliente.cpf);
 		
-		printf("Nome do cliente : %s\n", clientes.nome);
+		printf("Nome do cliente: %s\n", cliente.nome);
 		
-		printf("Endereco do cliente : %s\n", clientes.endereco);
+		printf("Endereco do cliente: %s\n", cliente.endereco);
 		
     } else {
-        printf("\nCliente não encontrado. ;(\n\n");
+        printf("\nCliente não encontrado. ;(\n");
+	}
+	
+	printf("\nPressione qualquer tecla para prosseguir: ");
+	getchar();
+}
+
+void remove_clients() {
+	system("cls");
+	clients rgs;
+	int option;
+	
+	printf("----------------------------------------\n\n");
+	printf("            EXCLUIR CLIENTES\n\n");
+	printf("----------------------------------------\n\n");
+	
+	printf("Insira o CPF do cliente (Sem caracteres especiais, apenas os números): ");
+	scanf("%i", &rgs.cpf);
+	
+	clients cliente = search_clients(ARQ_CLIENTS, rgs.cpf);
+	
+	if (cliente.cpf != -1) {
+		printf("\nID (Identificador) do cliente: %i\n", cliente.cpf);
+		
+		printf("Nome do cliente: %s\n", cliente.nome);
+		
+		printf("Endereco do cliente: %s\n", cliente.endereco);
+		
+		printf("\nTem certeza que deseja excluir esse produto? (1 - Sim, 2 - Não): ");
+		scanf("%i", &option);
+
+		while (option != 2) {
+		    if (option == 1) {
+		        del_clients(ARQ_CLIENTS, rgs.cpf);
+		        printf("\nO Produto com o ID %i foi excluído\n\n", rgs.cpf);
+		        break;
+		    }
+		    else if (option == 2) {
+		        break;
+		    }
+		    else {
+		        printf("\nOpção inválida\n\n");
+		        break;
+		    }
+		}
+    } else {
+        printf("\nProduto não encontrado. ;(\n\n");
 	}
 	
 	printf("Pressione qualquer tecla para prosseguir: ");

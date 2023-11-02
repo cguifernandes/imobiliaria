@@ -1,4 +1,5 @@
 #include <locale.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
 
@@ -11,9 +12,9 @@ void interaction_menu() {
 		printf("           MENU DE INTERAÇÃO\n\n");
 		printf("----------------------------------------\n\n");
 		
-		printf("1 - Imoveis    \n");
+		printf("1 - Imóveis\n");
 		printf("2 - Vendedores\n");
-		printf("3 - Clients\n");
+		printf("3 - Clientes\n");
 		printf("4 - Sobre a empresa\n");
 		printf("5 - Sair\n\n");
 		
@@ -44,6 +45,9 @@ void interaction_menu() {
 }
 
 void about() {
+	int option;
+	char url[] = "https://termos-imobiliaria.vercel.app/";
+	
 	system("cls");
 	printf("----------------------------------------\n\n");
 	printf("                 SOBRE\n\n");
@@ -55,7 +59,26 @@ void about() {
 	printf("CEP: 12042-618.\n");
 	printf("Atual proprietário: Laura Mendes.\n\n");
 	
-	printf("Pressione qualquer tecla para prosseguir: ");
+	printf("Deseja visitar o site com os termos e condições da empresa? (1 - Sim, 2 - Não): ");
+	scanf("%i", &option);
+	
+	while (option != 2) {
+		    if (option == 1) {
+		    	char command[256];
+		        snprintf(command, sizeof(command), "start %s", url);
+    			system(command);
+		        break;
+		    }
+		    else if (option == 2) {
+		        break;
+		    }
+		    else {
+		        printf("\nOpção inválida\n\n");
+		        break;
+		    }
+		}
+	
+	printf("\nPressione qualquer tecla para prosseguir: ");
 	getchar();
 }
 

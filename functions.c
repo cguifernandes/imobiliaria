@@ -7,16 +7,51 @@ int exist_register_products(char *arquivo, int id) {
 	products tmp;
 	
 	while (!feof(arq)) {
-		fscanf(arq,"%i %i %f %s\n", &tmp.id, &tmp.status, &tmp.valor, &tmp.endereco);
+		fscanf(arq,"%i %i %f %s\n", &tmp.id, &tmp.status, &tmp.valor, tmp.endereco);
 		if (tmp.id == id) {
+			fclose(arq);
 			return 1;
 		}
 		else {
+			fclose(arq);
 			return 0;
 		}
 	}
+}
+
+int exist_register_seller(char *arquivo, int id) {
+	FILE *arq = fopen(arquivo, "r");
+	seller tmp;
 	
-	fclose(arq);
+	while (!feof(arq)) {
+		fscanf(arq,"%i %i %f %s\n", &tmp.id, &tmp.qtdVendas, &tmp.salario, tmp.nome);
+		if (tmp.id == id) {
+			fclose(arq);
+			return 1;
+		}
+		else {
+			fclose(arq);
+			return 0;
+		}
+	}
+}
+
+int exist_register_clients(char *arquivo, int cpf) {
+	FILE *arq = fopen(arquivo, "r");
+	clients tmp;
+	
+	while (!feof(arq)) {
+		fscanf(arq,"%i %s %s\n", &tmp.cpf, &tmp.nome, &tmp.endereco);
+		
+		if (tmp.cpf == cpf) {
+			fclose(arq);
+			return 1;
+		}
+		else {
+			fclose(arq);
+			return 0;
+		}
+	}
 }
 
 products search_products(char *arquivo, int id) {
@@ -26,6 +61,7 @@ products search_products(char *arquivo, int id) {
    	while (!feof(arq)) {
     	fscanf(arq, "%i %s %f %i", &tmp.id, tmp.endereco, &tmp.valor, &tmp.status);
         if (tmp.id == id) {
+        	fclose(arq);
             return tmp; 
         }
         else {
@@ -37,7 +73,47 @@ products search_products(char *arquivo, int id) {
     return tmp; 
 }
 
-void remove(char *arquivo, int id) {
+seller search_seller(char *arquivo, int id) {
+    FILE *arq = fopen(arquivo, "r");
+    seller tmp;
+    
+   	while (!feof(arq)) {
+    	fscanf(arq, "%i %s %f %i", &tmp.id, tmp.nome, &tmp.salario, &tmp.qtdVendas);
+    	
+        if (tmp.id == id) {
+        	fclose(arq);
+            return tmp; 
+        }
+        else {
+        	tmp.id = -1;
+		}
+    }
+
+    fclose(arq);
+    return tmp; 
+}
+
+clients search_clients(char *arquivo, int cpf) {
+    FILE *arq = fopen(arquivo, "r");
+    clients tmp;
+    
+   	while (!feof(arq)) {
+    	fscanf(arq, "%i %s %s", &tmp.cpf, tmp.nome, tmp.endereco);
+    	
+        if (tmp.cpf == cpf) {
+        	fclose(arq);
+            return tmp; 
+        }
+        else {
+        	tmp.cpf = -1;
+		}
+    }
+
+    fclose(arq);
+    return tmp; 
+}
+
+void del_products(char *arquivo, int id) {
 	products tmp;
 	FILE *arq = fopen(arquivo, "r");
 	FILE *arq_temp = fopen("temp.txt", "w");
@@ -53,97 +129,46 @@ void remove(char *arquivo, int id) {
     fclose(arq);
     fclose(arq_temp);
     
-    system("del products.txt");
+	system("del products.txt");
 	system("rename temp.txt products.txt");
 }
 
-int exist_register_seller(char *arquivo, int id) {
+void del_clients(char *arquivo, int cpf) {
+	clients tmp;
 	FILE *arq = fopen(arquivo, "r");
-	seller tmp;
+	FILE *arq_temp = fopen("temp.txt", "w");
 	
 	while (!feof(arq)) {
-		fscanf(arq,"%i %i %f %s\n", &tmp.id, &tmp.qtdVendas, &tmp.salario, &tmp.nome);
-		if (tmp.id == id) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
-	
-	fclose(arq);
-}
-
-seller search_seller(char *arquivo, int id) {
-    FILE *arq = fopen(arquivo, "r");
-    seller tmp;
-    
-   	while (!feof(arq)) {
-    	fscanf(arq, "%i %s %f %i", &tmp.id, tmp.nome, &tmp.salario, &tmp.qtdVendas);
-        if (tmp.id == id) {
-            return tmp; 
-        }
-        else {
-        	tmp.id = -1;
+    	fscanf(arq, "%i %s %s", &tmp.cpf, tmp.nome, tmp.endereco);
+    	
+    	if (tmp.cpf != cpf) {
+    		fprintf(arq_temp, "%i %s %s\n", tmp.cpf, tmp.nome, tmp.endereco);
 		}
     }
-
+    
     fclose(arq);
-    return tmp; 
+    fclose(arq_temp);
+    
+	system("del clients.txt");
+	system("rename temp.txt clients.txt");
 }
 
-void remove_seller(char *arquivo, int id) {
+void del_seller(char *arquivo, int id) {
 	seller tmp;
 	FILE *arq = fopen(arquivo, "r");
-	FILE *arq_teste = fopen("teste.txt", "w");
+	FILE *arq_temp = fopen("temp.txt", "w");
 	
 	while (!feof(arq)) {
     	fscanf(arq, "%i %s %f %i", &tmp.id, tmp.nome, &tmp.salario, &tmp.qtdVendas);
     	
     	if (tmp.id != id) {
-    		fprintf(arq_teste, "%i %s %.2f %i \n", tmp.id, tmp.nome, tmp.salario, tmp.qtdVendas); 
+    		fprintf(arq_temp, "%i %s %.2f %i\n", tmp.id, tmp.nome, tmp.salario, tmp.qtdVendas);
 		}
     }
     
     fclose(arq);
-    fclose(arq_teste);
+    fclose(arq_temp);
     
-    system("del seller.txt");
-	system("rename teste.txt seller.txt");
+	system("del seller.txt");
+	system("rename temp.txt seller.txt");
 }
-//
-int exist_register_clients(char *arquivo, int id) {
-	FILE *arq = fopen(arquivo, "r");
-	clients tmp;
-	
-	while (!feof(arq)) {
-		fscanf(arq,"%i %s %s\n", &tmp.id, &tmp.nome, &tmp.endereco);
-		if (tmp.id == id) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
-	
-	fclose(arq);
-}
-
-clients search_clients(char *arquivo, int id) {
-    FILE *arq = fopen(arquivo, "r");
-     clients tmp;
-    
-   	while (!feof(arq)) {
-    	fscanf(arq, "%i %s %s", &tmp.id, tmp.nome, &tmp.endereco);
-        if (tmp.id == id) {
-            return tmp; 
-        }
-        else {
-        	tmp.id = -1;
-		}
-    }
-
-    fclose(arq);
-    return tmp; 
-}
-
