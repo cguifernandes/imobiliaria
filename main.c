@@ -6,7 +6,7 @@
 void interaction_menu() {
 	int option = 0;
 	
-	while (option != 5) {
+	while (option != 6) {
 		system("cls");
 		printf("----------------------------------------\n\n");
 		printf("           MENU DE INTERAÇÃO\n\n");
@@ -15,8 +15,9 @@ void interaction_menu() {
 		printf("1 - Imóveis\n");
 		printf("2 - Vendedores\n");
 		printf("3 - Clientes\n");
-		printf("4 - Sobre a empresa\n");
-		printf("5 - Sair\n\n");
+		printf("4 - Financiamentos\n");
+		printf("5 - Sobre a empresa\n");
+		printf("6 - Sair\n\n");
 		
 		printf("Por favor, digite uma das opções para continuar: ");
 		scanf("%i", &option);
@@ -31,10 +32,13 @@ void interaction_menu() {
 			case 3: 
 				interaction_clients();
 				break;
-			case 4:
-				about();
+			case 4: 
+				interaction_financiamento();
 				break;
 			case 5:
+				about();
+				break;
+			case 6:
 				return;
 			default:
 				break;
