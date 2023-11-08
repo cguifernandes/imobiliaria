@@ -58,10 +58,24 @@ void insert_clients() {
 	scanf("%i", &rgs.id);
 	
 	printf("Insira o nome do cliente: ");
-	scanf("%s", rgs.nome);
+	fflush(stdin);
+	fgets(rgs.nome, sizeof(rgs.nome), stdin);
+	transform_text(rgs.nome);
+	
+	size_t len = strlen(rgs.nome);
+	if (len > 0 && rgs.nome[len - 1] == '\n') {
+	    rgs.nome[len - 1] = '\0';
+	}
 	
 	printf("Insira o endereço do cliente: ");
-	scanf("%s", rgs.endereco);
+	fflush(stdin);
+	fgets(rgs.endereco, sizeof(rgs.endereco), stdin);
+	transform_text(rgs.endereco);
+	
+	len = strlen(rgs.endereco);
+	if (len > 0 && rgs.endereco[len - 1] == '\n') {
+	    rgs.endereco[len - 1] = '\0';
+	}
 	
 	int exist = exist_register_clients(ARQ_CLIENTS, rgs.id);
 
@@ -97,10 +111,13 @@ void list_clients() {
 	
 	if (cliente.id != -1) {
 		printf("\nCliente encontrado. :)\n\n");
+		
 		printf("ID (Identificador) do cliente: %i\n", cliente.id);
 		
+		remove_space(cliente.nome);
 		printf("Nome do cliente: %s\n", cliente.nome);
 		
+		remove_space(cliente.endereco);
 		printf("Endereco do cliente: %s\n", cliente.endereco);
 		
     } else {
@@ -128,8 +145,10 @@ void remove_clients() {
 	if (cliente.id != -1) {
 		printf("\nID do cliente: %i\n", cliente.id);
 		
+		remove_space(cliente.nome);
 		printf("Nome do cliente: %s\n", cliente.nome);
 		
+		remove_space(cliente.endereco);
 		printf("Endereço do cliente: %s\n", cliente.endereco);
 		
 		printf("\nTem certeza que deseja excluir esse cadastro? (1 - Sim, 2 - Não): ");
@@ -173,17 +192,33 @@ void update_clients() {
 	if (cliente.id != -1) {
 		printf("\nID do cliente: %i\n", cliente.id);
 		
+		remove_space(cliente.nome);
 		printf("Nome do cliente: %s\n", cliente.nome);
 		
+		remove_space(cliente.endereco);
 		printf("Endereço do cliente: %s\n", cliente.endereco);
 		
 		printf("\nNovo cadastro\n\n");
 		
 		printf("Insira o novo nome do cliente: ");
-		scanf("%s", novo.nome);
+		fflush(stdin);
+		fgets(novo.nome, sizeof(novo.nome), stdin);
+		transform_text(novo.nome);
+		
+		size_t len = strlen(novo.nome);
+		if (len > 0 && novo.nome[len - 1] == '\n') {
+		    novo.nome[len - 1] = '\0';
+		}
 		
 		printf("Insira o novo endereço do cliente: ");
-		scanf("%s", novo.endereco);
+		fflush(stdin);
+		fgets(novo.endereco, sizeof(novo.endereco), stdin);
+		transform_text(novo.endereco);
+		
+		len = strlen(novo.endereco);
+		if (len > 0 && novo.endereco[len - 1] == '\n') {
+		    novo.endereco[len - 1] = '\0';
+		}
 		
 
 		del_clients(ARQ_CLIENTS, cliente.id);

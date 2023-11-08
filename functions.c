@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "functions.h"
 
 int exist_register_products(char *arquivo, int id) {
@@ -172,4 +173,22 @@ void del_seller(char *arquivo, int id) {
     
 	system("del seller.txt");
 	system("rename temp.txt seller.txt");
+}
+
+void transform_text(char texto[]) {
+    int i;
+    for (i = 0; i < strlen(texto); i++) {
+    	if (texto[i] == ' ') {
+    		texto[i] = '+';
+		}
+	}
+}
+
+void remove_space(char texto[]) {
+    int i;
+    for (i = 0; i < strlen(texto); i++) {
+    	if (texto[i] == '+') {
+    		texto[i] = ' ';
+		}
+	}
 }

@@ -25,6 +25,8 @@ typedef struct{
 	float valor_do_imovel;
 }Ficha_Tecnica_Imovel;
 
+void transform_text(char texto[]);
+void remove_space(char texto[]);
 
 void interaction_clients();
 void interaction_products();

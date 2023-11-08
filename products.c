@@ -58,7 +58,14 @@ void insert_products() {
 	scanf("%i", &rgs.id);
 	
 	printf("Insira o endereço do imóvel: ");
-	scanf("%s", rgs.endereco);
+	fflush(stdin);
+	fgets(rgs.endereco, sizeof(rgs.endereco), stdin);
+	transform_text(rgs.endereco);
+	
+	size_t len = strlen(rgs.endereco);
+	if (len > 0 && rgs.endereco[len - 1] == '\n') {
+	    rgs.endereco[len - 1] = '\0';
+	}
 	
 	printf("Insira o valor do imóvel: ");
 	scanf("%f", &rgs.valor);
@@ -105,6 +112,7 @@ void list_products() {
 		printf("\nProduto encontrado. :)\n\n");
 		printf("ID (Identificador) do produto: %i\n", produto.id);
 		
+		remove_space(produto.endereco);
 		printf("Endereço do imóvel: %s\n", produto.endereco);
 		
 		printf("Valor do imóvel: %.2f\n", produto.valor);
@@ -113,7 +121,7 @@ void list_products() {
 		    strcpy(status, "Vendido");
 		}
 		else {
-		    strcpy(status, "ï¿½ venda");
+		    strcpy(status, "À venda");
 		}
 		
 		printf("Status do imóvel: %s\n\n", status);
@@ -143,7 +151,8 @@ void remove_products() {
 	if (produto.id != -1) {
 		printf("\nID (Identificador) do produto: %i\n", produto.id);
 		
-		printf("Endereï¿½o do imóvel: %s\n", produto.endereco);
+		remove_space(produto.endereco);
+		printf("Endereço do imóvel: %s\n", produto.endereco);
 		
 		printf("Valor do imóvel: %.2f\n", produto.valor);
 		
@@ -198,6 +207,7 @@ void update_products() {
 	if (produto.id != -1) {
 		printf("\nID (Identificador) do produto: %i\n", produto.id);
 		
+		remove_space(produto.endereco);
 		printf("Endereço do imóvel: %s\n", produto.endereco);
 		
 		printf("Valor do imóvel: %.2f\n", produto.valor);
@@ -213,7 +223,14 @@ void update_products() {
 		printf("\nNovo cadastro\n\n");
 		
 		printf("Insira o novo endereço do imóvel: ");
-		scanf("%s", novo.endereco);
+		fflush(stdin);
+		fgets(novo.endereco, sizeof(novo.endereco), stdin);
+		transform_text(novo.endereco);
+		
+		size_t len = strlen(novo.endereco);
+		if (len > 0 && novo.endereco[len - 1] == '\n') {
+		    novo.endereco[len - 1] = '\0';
+		}
 		
 		printf("Insira o novo valor do imóvel: ");
 		scanf("%f", &novo.valor);

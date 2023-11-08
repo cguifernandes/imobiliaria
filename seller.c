@@ -58,7 +58,14 @@ void insert_seller() {
 	scanf("%i", &rgs.id);
 	
 	printf("Insira o nome do(a) vendedor(a): ");
-	scanf("%s", rgs.nome);
+	fflush(stdin);
+	fgets(rgs.nome, sizeof(rgs.nome), stdin);
+	transform_text(rgs.nome);
+	
+	size_t len = strlen(rgs.nome);
+	if (len > 0 && rgs.nome[len - 1] == '\n') {
+	    rgs.nome[len - 1] = '\0';
+	}
 	
 	printf("Insira qual o salário do(a) vendedor(a): ");
 	scanf("%f", &rgs.salario);
@@ -106,6 +113,7 @@ void list_seller() {
 		printf("\nVendedor(a) encontrado. :)\n\n");
 		printf("ID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
 		
+		remove_space(vendedor.nome);
 		printf("Nome do(a) vendedor(a): %s\n", vendedor.nome);
 		
 		printf("Salário do(a) vendedor(a): %.2f\n", vendedor.salario);
@@ -135,8 +143,9 @@ void remove_seller() {
 	seller vendedor = search_seller(ARQ_SELLER, rgs.id);
 	
 	if (vendedor.id != -1) {
-		printf("ID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
+		printf("\nID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
 		
+		remove_space(vendedor.nome);
 		printf("Nome do(a) vendedor(a): %s\n", vendedor.nome);
 		
 		printf("O salário do(a) vendedor(a): %.2f\n", vendedor.salario);
@@ -184,6 +193,7 @@ void update_seller() {
 	if (vendedor.id != -1) {
 		printf("\nID (Identificador) do(a) vendedor(a): %i\n", vendedor.id);
 		
+		remove_space(vendedor.nome);
 		printf("Nome do(a) vendedor(a): %s\n", vendedor.nome);
 		
 		printf("O salário do(a) vendedor(a): %.2f\n", vendedor.salario);
@@ -193,7 +203,14 @@ void update_seller() {
 		printf("Novo cadastro\n\n");
 
 		printf("Insira o novo nome do(a) vendedor(a): ");
-		scanf("%s", novo.nome);
+		fflush(stdin);
+		fgets(novo.nome, sizeof(novo.nome), stdin);
+		transform_text(novo.nome);
+		
+		size_t len = strlen(novo.nome);
+		if (len > 0 && novo.nome[len - 1] == '\n') {
+		    novo.nome[len - 1] = '\0';
+		}
 		
 		printf("Insira o novo salário do(a) vendedor(a): ");
 		scanf("%f", &novo.salario);
@@ -205,7 +222,7 @@ void update_seller() {
 		
 		FILE *arq = fopen(ARQ_SELLER, "a+");
 		fprintf(arq, "%i %s %.2f %i\n", rgs.id, novo.nome, novo.salario, novo.qtdVendas);
-	    printf("Novo cadastro foi concluído ;)\n\n");
+	    printf("\nNovo cadastro foi concluído ;)\n\n");
 	    fclose(arq);
     } else {
 		printf("\Vendedor(a) não encontrado. ;(\n\n");

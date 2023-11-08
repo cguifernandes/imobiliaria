@@ -23,17 +23,17 @@ void interaction_financiamento() {
 	scanf("%i", &op);
     
     switch (op) {
-    case 1:
-    // SAC
-		financiamentoSAC();
-        return;
-
-    case 2:
-	//PRICE        
-		financiamentoPrice();
-        return;
-    }
-
+	    case 1:
+	    // SAC
+			financiamentoSAC();
+	        break;
+	    case 2:
+		//PRICE        
+			financiamentoPrice();
+	        break;
+		default:
+			return;
+	}
     return;
 }
 
